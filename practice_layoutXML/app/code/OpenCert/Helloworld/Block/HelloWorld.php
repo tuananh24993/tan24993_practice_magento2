@@ -6,7 +6,7 @@ class Helloworld extends \Magento\Framework\View\Element\Template
 	protected $_registry;
 	protected $_catalogSession;
 
-	public function __construct(
+	/*public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\Registry $registry,
         \Magento\Catalog\Model\Session $catalogSession,
@@ -25,5 +25,9 @@ class Helloworld extends \Magento\Framework\View\Element\Template
     public function getCatalogSession() 
     {
         return $this->_catalogSession;
+    }*/
+
+	protected function _prepareLayout() {
+	    parent::_prepareLayout();
     }
 }

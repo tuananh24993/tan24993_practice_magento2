@@ -56,3 +56,6 @@ Stack trace:
 [25-Jun-2018 15:24:47 UTC] PHP Warning:  fopen(/var/www/html/magen/var/cache//mage-tags/mage---8f5_COMPILED_CONFIG): failed to open stream: Permission denied in /var/www/html/magen/vendor/colinmollenhour/cache-backend-file/File.php on line 646
 [25-Jun-2018 15:24:48 UTC] PHP Warning:  file_put_contents(/var/www/html/magen/var/cache//mage-tags/mage---8f5_COMPILED_CONFIG): failed to open stream: Permission denied in /var/www/html/magen/vendor/colinmollenhour/cache-backend-file/File.php on line 663
 [25-Jun-2018 15:24:48 UTC] PHP Warning:  fopen(/var/www/html/magen/var/cache//mage-tags/mage---8f5_COMPILED_CONFIG): failed to open stream: Permission denied in /var/www/html/magen/vendor/colinmollenhour/cache-backend-file/File.php on line 646
+[28-Jun-2018 14:48:13 Asia/Krasnoyarsk] PHP Parse error:  syntax error, unexpected ';', expecting ',' or ')' in /var/www/html/magen/app/code/PracticeLayout/FooterLayout/registration.php on line 5
+[28-Jun-2018 14:48:13 Asia/Krasnoyarsk] PHP Parse error:  syntax error, unexpected ';', expecting ',' or ')' in /var/www/html/magen/app/code/PracticeLayout/FooterLayout/registration.php on line 5
+[28-Jun-2018 14:48:13 Asia/Krasnoyarsk] PHP Parse error:  syntax error, unexpected ';', expecting ',' or ')' in /var/www/html/magen/app/code/PracticeLayout/FooterLayout/registration.php on line 5
