@@ -1,0 +1,20 @@
+<?php
+//get product id, sku by objectManager
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$productRepository = $objectManager->get('\Magento\Catalog\Model\ProductRepository');
+
+// get product by product id by Objectmanager and repository
+$product = $productRepository->getById(15);
+// get product by product sku Objectmanager and repository
+$product = $productRepository->get('MT12');
+//By Factory
+//$product = $this->_productFactory->create()->load('MT12');
+echo "Get SKU by objectManager:".'</br>';
+echo $product->getEntityId() . '<br>';
+echo $product->getName() . '<br>';
+echo $product->getSKU() . '<br>';
+echo $product->getPrice() . '<br>';
+echo $product->getSpecialPrice() . '<br>';
+echo $product->getTypeId() . '<br>';
+echo $product->getProductUrl() . '<br>';
