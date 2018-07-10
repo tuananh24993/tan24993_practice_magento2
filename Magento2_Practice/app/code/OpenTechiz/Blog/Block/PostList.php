@@ -7,13 +7,16 @@ class PostList extends \Magento\Framework\View\Element\Template implements
 {
 
     protected $_postCollectionFactory;
+    protected $_scopeConfig;
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \OpenTechiz\Blog\Model\ResourceModel\Post\CollectionFactory $postCollectionFactory,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         array $data = []
     ) {
         parent::__construct($context, $data);
         $this->_postCollectionFactory = $postCollectionFactory;
+        $this->_scopeConfig = $scopeConfig;
     }
     public function getPosts()
     {
@@ -37,5 +40,11 @@ class PostList extends \Magento\Framework\View\Element\Template implements
     public function getIdentities()
     {
         return [\OpenTechiz\Blog\Model\Post::CACHE_TAG . '_' . 'list'];
+    }
+
+    public function storeEmail()
+    {
+        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
+        return $this->_scopeConfig->getValue('trans_email/ident_support/email', $storeScope);
     }
 }

@@ -13,11 +13,11 @@ class UpgradeSchema implements  UpgradeSchemaInterface
         $installer = $setup;
         $installer->startSetup();
         $tableName = $installer->getTable('opentechiz_blog_comment');
-        $installer->getConnection()->addColumn($tableName, 'is_active', [
-            'type' => Table::TYPE_SMALLINT,
+        $installer->getConnection()->addColumn($tableName, 'email', [
+            'type' => Table::TYPE_TEXT,
             'nullable' => false,
-            'default' => 0,
-            'comment' => 'Is Comment Active?'
+            255,
+            'comment' => 'Email'
         ]);
         $installer->endSetup();
     }
