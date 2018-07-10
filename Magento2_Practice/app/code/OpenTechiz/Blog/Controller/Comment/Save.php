@@ -70,9 +70,9 @@ class Save extends Action
             ]);
 
             //send email
-            $sender = array('email' => "tan.24993@gmail.com", 'name' => 'Admin');
+            $sender = array('email' => "tan.testmail24993@gmail.com", 'name' => 'Admin');
             $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-            $transport = $this->_transportBuilder->setTemplateIdentifier($this->scopeConfig->getValue('blog/general/template', $storeScope))
+            $transport = $this->_transportBuilder->setTemplateIdentifier($this->_scopeConfig->getValue('blog/general/template', $storeScope))
                 ->setTemplateOptions(
                     [
                         'area' =>  \Magento\Framework\App\Area::AREA_FRONTEND,

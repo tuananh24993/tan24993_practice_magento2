@@ -1,43 +1,47 @@
 define([
     "jquery",
-    "jquery/ui",
-    "OpenTechiz_Blog/js/loadcomment"
-], function($, ui, loadcomment) {
+    "jquery/ui"
+], function($){
     "use strict";
 
     function main(config, element) {
         var $element = $(element);
-        //console.log(loadcomment);
-        loadcomment.loadComments(config);
-        var AjaxCommentPostUrl = config.AjaxCommentPostUrl;
+        var AjaxUrl = config.AjaxUrl;
 
         var dataForm = $('#comment-form');
         dataForm.mage('validation', {});
 
-        $(document).on('click', '.submit',function(){
-            if(dataForm.valid()){
+        $(document).on('click','#submit',function() {
+
+            if (dataForm.valid()){
                 event.preventDefault();
                 var param = dataForm.serialize();
                 //alert(param);
                 $.ajax({
                     showLoader: true,
-                    url: AjaxCommentPostUrl,
+                    url: AjaxUrl,
                     data: param,
-                    type: 'POST'
-                }).done(function(data){
-                    //console.log(data);
-                    if(data.result== "error"){
-                        $('.note').css('color', 'red');
+                    type: "POST"
+                }).done(function (data) {
+                    console.log(data);
+                    if(data.result == "success")
+                    {
                         $('.note').html(data.message);
-                        return false;
+                        $('.note').css('color', 'green');
+                        document.getElementById("comment-form").reset();
+                        return true;
                     }
-                    document.getElementById('comment-form').reset();
-                    $('.note').html(data.message);
-                    $('.note').css('color', 'green');
-                    loadcomment.loadComments(config);
+                    else
+                    {
+                        $('.note').html(data.message);
+                     +   $('.note').css('color', 'red');
+                        return true;
+                    }
                 });
             }
         });
     };
     return main;
+
+
 });

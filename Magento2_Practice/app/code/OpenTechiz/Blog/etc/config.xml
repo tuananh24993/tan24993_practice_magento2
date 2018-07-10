@@ -9,7 +9,7 @@
     <default>
         <blog>
             <general>
-                <send_email>blog_comment_notification_email_template</send_email>
+                <template>blog_comment_notification_email_template</template>
             </general>
         </blog>
     </default>
