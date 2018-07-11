@@ -5,7 +5,7 @@
  */
 namespace OpenTechiz\Blog\Model\Post;
 
-use Magento\Cms\Model\ResourceModel\Block\CollectionFactory;
+use OpenTechiz\Blog\Model\ResourceModel\Post\CollectionFactory;
 use Magento\Framework\App\Request\DataPersistorInterface;
 
 /**

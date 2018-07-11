@@ -41,31 +41,47 @@ class Edit extends \Magento\Backend\App\Action
      */
     protected function _initAction()
     {
+        // load layout, set active menu and breadcrumbs
+        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->resultPageFactory->create();
-        $resultPage->setActiveMenu('OpenTechiz_Blog::post');
+        $resultPage->setActiveMenu('OpenTechiz_Blog::post')
+            ->addBreadcrumb(__('Blog'), __('Blog'))
+            ->addBreadcrumb(__('Manage Blog Posts'), __('Manage Blog Posts'));
         return $resultPage;
     }
+    /**
+     * Edit Blog post
+     *
+     * @return \Magento\Backend\Model\View\Result\Page|\Magento\Backend\Model\View\Result\Redirect
+     * @SuppressWarnings(PHPMD.NPathComplexity)
+     */
     public function execute()
     {
-        // Get ID and create model
-        $id = $this->getRequest()->getParam('id');
+        $id = $this->getRequest()->getParam('post_id');
         $model = $this->_objectManager->create('OpenTechiz\Blog\Model\Post');
-        // Initial checking
         if ($id) {
             $model->load($id);
-            // If cannot get ID of model, display error message and redirect to List page
             if (!$model->getId()) {
-                $this->messageManager->addError(__('This image no longer exists.'));
+                $this->messageManager->addError(__('This post no longer exists.'));
+                /** \Magento\Backend\Model\View\Result\Redirect $resultRedirect */
                 $resultRedirect = $this->resultRedirectFactory->create();
                 return $resultRedirect->setPath('*/*/');
             }
         }
-        // Registry post
-        $this->_coreRegistry->register('post', $model);
-        // Build form
+        $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
+        if (!empty($data)) {
+            $model->setData($data);
+        }
+        $this->_coreRegistry->register('blog_post', $model);
+        /** @var \Magento\Backend\Model\View\Result\Page $resultPage */
         $resultPage = $this->_initAction();
+        $resultPage->addBreadcrumb(
+            $id ? __('Edit Blog Post') : __('New Blog Post'),
+            $id ? __('Edit Blog Post') : __('New Blog Post')
+        );
+        $resultPage->getConfig()->getTitle()->prepend(__('Blog Posts'));
         $resultPage->getConfig()->getTitle()
-            ->prepend($model->getId() ? $model->getImage() : __('Create Image'));
+            ->prepend($model->getId() ? $model->getTitle() : __('New Blog Post'));
         return $resultPage;
     }
 }

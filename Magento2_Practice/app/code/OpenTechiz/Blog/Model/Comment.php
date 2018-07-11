@@ -5,9 +5,23 @@ use Magento\Framework\DataObject\IdentityInterface;
 class Comment extends \Magento\Framework\Model\AbstractModel implements CommentInterface,IdentityInterface
 {
     const CACHE_TAG='opentechiz_blog_comment';
+    const COMMENT_PENDING = 0;
+    const COMMENT_ENABLE = 1;
+    const COMMENT_DISABLE = 2;
+
+
     function _construct()
     {
         $this->_init('OpenTechiz\Blog\Model\ResourceModel\Comment');
+    }
+
+    public  function getAvailableStatus()
+    {
+        return [
+            self::COMMENT_PENDING => __('Pending'),
+            self::COMMENT_ENABLE => __('Enable'),
+            self::COMMENT_DISABLE => __('Disable')
+        ];
     }
 
     public function getIdentities()
