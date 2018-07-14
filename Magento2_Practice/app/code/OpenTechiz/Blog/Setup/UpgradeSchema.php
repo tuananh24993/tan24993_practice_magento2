@@ -12,13 +12,19 @@ class UpgradeSchema implements  UpgradeSchemaInterface
                             ModuleContextInterface $context){
         $installer = $setup;
         $installer->startSetup();
-        $tableName = $installer->getTable('opentechiz_blog_comment');
-        $installer->getConnection()->addColumn($tableName, 'status', [
-            'type' => Table::TYPE_SMALLINT,
-            'nullable' => false,
-            'default' => 0,
-            'comment' => 'Status'
-        ]);
+        $table = $installer->getConnection()
+            ->newTable($installer->getTable('opentechiz_blog_comment_approval_notification'))
+            ->addColumn('notification_id', Table::TYPE_SMALLINT, null, [
+                'identity' => true,
+                'nullable' => false,
+                'primary' => true,
+            ], 'Notificatiom ID')
+            ->addColumn('content', Table::TYPE_TEXT, 255, ['nullable => false'], 'Notification Content')
+            ->addColumn('user_id', Table::TYPE_SMALLINT, null, ['nullable' => false], 'User ID')
+            ->addColumn('post_id', Table::TYPE_SMALLINT, null, ['nullable' => false], 'Post ID')
+            ->addColumn('creation_time', Table::TYPE_TIMESTAMP, null, [], 'Created At')
+            ->setComment('Comment Notification');
+        $installer->getConnection()->createTable($table);
         $installer->endSetup();
     }
 }
