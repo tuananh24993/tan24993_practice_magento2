@@ -1,27 +1,21 @@
 <?php
 namespace OpenTechiz\Blog\Api\Data;
 
-interface CommentInterface
+interface NotificationInterface
 {
-    const COMMENT_ID                  = 'comment_id';
+
+    const NOTI_ID                  = 'notification_id';
     const CONTENT                  = 'content';
-    const AUTHOR                    = 'author';
     const POST_ID                  = 'post_id';
-    const USER_ID                  = 'user_id';
+    const USER_ID					= 'user_id';
     const CREATION_TIME            = 'creation_time';
-    const IS_ACTIVE                 ='is_active';
-    const EMAIL                     = 'email';
     function getID();
-    function getEmail();
     function getContent();
-    function getAuthor();
     function getPostID();
     function getUserID();
     function getCreationTime();
     function setID($id);
-    function setEmail($email);
     function setContent($content);
-    function setAuthor($author);
     function setPostID($postID);
     function setUserID($userID);
     function setCreationTime($creatTime);

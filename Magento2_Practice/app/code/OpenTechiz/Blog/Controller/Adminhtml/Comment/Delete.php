@@ -4,18 +4,22 @@ use Magento\Backend\App\Action;
 use Magento\TestFramework\ErrorLog\Logger;
 class Delete extends \Magento\Backend\App\Action
 {
-    /**
-     * {@inheritdoc}
-     */
+    protected $_commentFactory;
+
+    public function __construct(
+        \OpenTechiz\Blog\Model\CommentFactory $commentFactory,
+        \Magento\Backend\App\Action\Context $context
+    )
+    {
+        $this->_commentFactory = $commentFactory;
+        parent::__construct($context);
+    }
+
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed('OpenTechiz_Blog::delete');
     }
-    /**
-     * Delete action
-     *
-     * @return \Magento\Framework\Controller\ResultInterface
-     */
+
     public function execute()
     {
         $id = $this->getRequest()->getParam('comment_id');
@@ -23,7 +27,7 @@ class Delete extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($id) {
             try {
-                $model = $this->_objectManager->create('OpenTechiz\Blog\Model\Comment');
+                $model = $this->_commentFactory->create();
                 $model->load($id);
                 $model->delete();
                 $this->messageManager->addSuccess(__('The comment has been deleted.'));

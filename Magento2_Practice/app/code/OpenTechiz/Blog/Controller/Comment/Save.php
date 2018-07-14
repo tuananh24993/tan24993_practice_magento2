@@ -10,12 +10,18 @@ class Save extends Action
     protected $_inlineTranslation;
     protected $_transportBuilder;
     protected $_scopeConfig;
+    protected $_commentFactory;
+    protected $_sendEmail;
+    protected $_customerSession;
 
     function __construct(
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
         \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
         \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \OpenTechiz\Blog\Model\CommentFactory $commentFactory,
+        \Magento\Customer\Model\Session $customerSession,
+        \OpenTechiz\Blog\Helper\SendEmail $sendEmail,
         \Magento\Framework\App\Action\Context $context
     )
     {
@@ -24,6 +30,9 @@ class Save extends Action
         $this->_inlineTranslation = $inlineTranslation;
         $this->_transportBuilder = $transportBuilder;
         $this->_scopeConfig = $scopeConfig;
+        $this->_commentFactory = $commentFactory;
+        $this->_sendEmail = $sendEmail;
+        $this->_customerSession = $customerSession;
         parent::__construct($context);
     }
     public function execute()
@@ -39,17 +48,21 @@ class Save extends Action
         $this->_inlineTranslation->suspend();
         $postObject = new \Magento\Framework\DataObject();
         $postObject->setData($postData);
-        // validate data
-        if(!\Zend_Validate::is(trim($postData['author']), 'NotEmpty'))
+        $customer = null;
+        if($this->_customerSession->isLoggedIn())
         {
+            $customer = $this->_customerSession->getCustomer();
+            $postData['author'] = $customer->getName();
+            $postData['email'] = $customer->getEmail();
+            $postData['user_id'] = $customer->getId();
+        }
+        else if(!\Zend_Validate::is(trim($postData['author']), 'NotEmpty'))
+        {
+            // validate data
             $error = true;
             $message = "Name can not be empty!";
         }
-        if(!\Zend_Validate::is(trim($postData['email']), 'NotEmpty'))
-        {
-            $error = true;
-            $message = "Email can not be empty!";
-        }
+
         $jsonResultResponse = $this->_resultJsonFactory->create();
         if(!$error)
         {

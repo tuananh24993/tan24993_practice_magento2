@@ -3,42 +3,32 @@ namespace OpenTechiz\Blog\Controller\Adminhtml\Post;
 use Magento\Backend\App\Action;
 class Edit extends \Magento\Backend\App\Action
 {
-    /**
-     * Core registry
-     *
-     * @var \Magento\Framework\Registry
-     */
+
     protected $_coreRegistry = null;
-    /**
-     * @var \Magento\Framework\View\Result\PageFactory
-     */
+    protected $_postFactory;
+    protected $_backendSession;
+
     protected $resultPageFactory;
-    /**
-     * @param Action\Context $context
-     * @param \Magento\Framework\View\Result\PageFactory $resultPageFactory
-     * @param \Magento\Framework\Registry $registry
-     */
+
     public function __construct(
         Action\Context $context,
         \Magento\Framework\View\Result\PageFactory $resultPageFactory,
+        \OpenTechiz\Blog\Model\PostFactory $postFactory,
+        \Magento\Backend\Model\Session $backendSession,
         \Magento\Framework\Registry $registry
     ) {
         $this->resultPageFactory = $resultPageFactory;
+        $this->_postFactory = $postFactory;
+        $this->_backendSession = $backendSession;
         $this->_coreRegistry = $registry;
         parent::__construct($context);
     }
-    /**
-     * {@inheritdoc}
-     */
+
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed('OpenTechiz_Blog::save');
     }
-    /**
-     * Init actions
-     *
-     * @return \Magento\Backend\Model\View\Result\Page
-     */
+
     protected function _initAction()
     {
         // load layout, set active menu and breadcrumbs
@@ -49,16 +39,11 @@ class Edit extends \Magento\Backend\App\Action
             ->addBreadcrumb(__('Manage Blog Posts'), __('Manage Blog Posts'));
         return $resultPage;
     }
-    /**
-     * Edit Blog post
-     *
-     * @return \Magento\Backend\Model\View\Result\Page|\Magento\Backend\Model\View\Result\Redirect
-     * @SuppressWarnings(PHPMD.NPathComplexity)
-     */
+
     public function execute()
     {
         $id = $this->getRequest()->getParam('post_id');
-        $model = $this->_objectManager->create('OpenTechiz\Blog\Model\Post');
+        $model = $this->_postFactory->create('OpenTechiz\Blog\Model\Post');
         if ($id) {
             $model->load($id);
             if (!$model->getId()) {
@@ -68,7 +53,7 @@ class Edit extends \Magento\Backend\App\Action
                 return $resultRedirect->setPath('*/*/');
             }
         }
-        $data = $this->_objectManager->get('Magento\Backend\Model\Session')->getFormData(true);
+        $data = $this->_backendSession->getFormData(true);
         if (!empty($data)) {
             $model->setData($data);
         }

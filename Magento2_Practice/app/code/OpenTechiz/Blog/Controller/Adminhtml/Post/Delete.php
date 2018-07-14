@@ -4,9 +4,17 @@ use Magento\Backend\App\Action;
 use Magento\TestFramework\ErrorLog\Logger;
 class Delete extends \Magento\Backend\App\Action
 {
-    /**
-     * {@inheritdoc}
-     */
+    protected $_postFactory;
+
+    public function __construct(
+        \OpenTechiz\Blog\Model\PostFactory $postFactory,
+        \Magento\Backend\App\Action\Context $context
+    )
+    {
+        $this->_postFactory = $postFactory;
+        parent::__construct($context);
+    }
+
     protected function _isAllowed()
     {
         return $this->_authorization->isAllowed('OpenTechiz_Blog::delete');
@@ -23,7 +31,7 @@ class Delete extends \Magento\Backend\App\Action
         $resultRedirect = $this->resultRedirectFactory->create();
         if ($id) {
             try {
-                $model = $this->_objectManager->create('OpenTechiz\Blog\Model\Post');
+                $model = $this->_postFactory->create('OpenTechiz\Blog\Model\Post');
                 $model->load($id);
                 $model->delete();
                 $this->messageManager->addSuccess(__('The post has been deleted.'));
