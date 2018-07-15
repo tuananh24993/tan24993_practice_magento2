@@ -20,3 +20,4 @@ class UserInfo extends \Magento\Framework\App\Helper\AbstractHelper
         $isLoggedIn = $this->httpContext->getValue(\Magento\Customer\Model\Context::CONTEXT_AUTH);
         return $isLoggedIn;
     }
+}

@@ -13,7 +13,7 @@ define([
         var dataForm = $('#comment-form');
         dataForm.mage('validation', {});
 
-        $(document).on('click', '.submit',function(){
+        $(document).on('click', '#submit',function(){
             if(dataForm.valid()){
                 event.preventDefault();
                 var param = dataForm.serialize();

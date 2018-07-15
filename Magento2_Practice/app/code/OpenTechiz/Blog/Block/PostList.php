@@ -42,9 +42,4 @@ class PostList extends \Magento\Framework\View\Element\Template implements
         return [\OpenTechiz\Blog\Model\Post::CACHE_TAG . '_' . 'list'];
     }
 
-    public function storeEmail()
-    {
-        $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-        return $this->_scopeConfig->getValue('trans_email/ident_support/email', $storeScope);
-    }
 }

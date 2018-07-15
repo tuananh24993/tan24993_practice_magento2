@@ -24,6 +24,11 @@ class NewComment extends \Magento\Framework\View\Element\Template
         return '/magen/post/comment/save';
     }
 
+    public function getAjaxUrl()
+    {
+        return '/magen/post/comment/load';
+    }
+
     public function getPostID()
     {
         return $this->_request->getParam('post_id', false);

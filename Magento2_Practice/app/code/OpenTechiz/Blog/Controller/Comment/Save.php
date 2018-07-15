@@ -76,6 +76,9 @@ class Save extends Action
             $comment->setAuthor($author);
             $comment->setContent($content);
             $comment->setPostID($post_id);
+            if(isset($postData['user_id'])){
+                $comment->setUserID($postData['user_id']);
+            }
             $comment->save();
             $jsonResultResponse->setData([
                 'result' => 'success',
