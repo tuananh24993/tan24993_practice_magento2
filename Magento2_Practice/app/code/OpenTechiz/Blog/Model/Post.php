@@ -1,6 +1,8 @@
 <?php namespace OpenTechiz\Blog\Model;
 use OpenTechiz\Blog\Api\Data\PostInterface;
 use Magento\Framework\DataObject\IdentityInterface;
+use Magento\Framework\Api\AttributeValueFactory;
+use Magento\Framework\Api\ExtensionAttributesFactory;
 class Post  extends \Magento\Framework\Model\AbstractModel implements PostInterface, IdentityInterface
 {
     const STATUS_ENABLED = 1;

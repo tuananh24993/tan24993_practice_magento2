@@ -39,7 +39,11 @@ class PostList extends \Magento\Framework\View\Element\Template implements
 
     public function getIdentities()
     {
-        return [\OpenTechiz\Blog\Model\Post::CACHE_TAG . '_' . 'list'];
+        $identities = [];
+        foreach ($this->getPosts() as $post) {
+            $identities = array_merge($identities, $post->getIdentities());
+        }
+        return $identities;
     }
 
 }

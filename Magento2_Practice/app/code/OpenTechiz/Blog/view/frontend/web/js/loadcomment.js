@@ -17,7 +17,7 @@ define([
                     post_id: AjaxPostId
                 }
             }).done(function(data){
-                var template = mageTemplate('#blog-comment');
+                var template = mageTemplate('#cmt-not-active');
                 $('ul#data').empty();
                 if(data==false) return false;
                 var comments = data.items;

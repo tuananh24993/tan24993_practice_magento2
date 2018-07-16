@@ -26,7 +26,7 @@ class Comment extends \Magento\Framework\Model\AbstractModel implements CommentI
 
     public function getIdentities()
     {
-        return [self::CACHE_TAG . '_' . $this->getId()];
+        return [self::CACHE_TAG . '_' . $this->getID()];
     }
 
     function getID(){

@@ -12,13 +12,20 @@ class Notification extends \Magento\Framework\Model\AbstractModel implements Not
 
     public function getIdentities()
     {
-        return [self::CACHE_TAG . '_' . $this->getId()];
+        return [self::CACHE_TAG . '_' . $this->getID()];
     }
     /**
      * @{initialize}
      */
     function getID(){
         return $this->getData(self::NOTI_ID);
+    }
+    function getCommentID(){
+        return $this->getData(self::COMMENT_ID);
+    }
+
+    function isViewed(){
+        return $this->getData(self::IS_VIEWED);
     }
     /**
      * @{initialize}
@@ -53,6 +60,17 @@ class Notification extends \Magento\Framework\Model\AbstractModel implements Not
         $this->setData(self::USER_ID,$userID);
         return $this;
     }
+
+    function setCommentID($commentID){
+        $this->setData(self::COMMENT_ID, $commentID);
+        return $this;
+    }
+
+    function setIsViewed($isViewed){
+        $this->setData(self::IS_VIEWED,$isViewed);
+        return $this;
+    }
+
     function setContent($content){
         $this->setData(self::CONTENT,$content);
         return $this;

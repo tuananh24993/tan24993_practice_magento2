@@ -4,7 +4,9 @@
         <referenceContainer name="content">
             <block class="OpenTechiz\Blog\Block\PostView" name="blog.list" template="OpenTechiz_Blog::view.phtml" />
             <block class="OpenTechiz\Blog\Block\CommentList" name="post.comment" template="OpenTechiz_Blog::approvedcomment.phtml"/>
+            <block class="OpenTechiz\Blog\Block\CommentList" name="post.inactivecomment" template="OpenTechiz_Blog::inactivecomment.phtml"/>
             <block class="OpenTechiz\Blog\Block\NewComment" name="add.comment" template="OpenTechiz_Blog::commentform.phtml" />
+            <referenceBlock name="page.main.title" remove="true" />
         </referenceContainer>
     </body>
 </page>
