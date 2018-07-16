@@ -26,7 +26,7 @@ class NotificateComment extends DataObject implements SectionSourceInterface
             $getCmtCount = $cmtCheck->count();
             if($getCmtCount > 0)
             {
-                $cmtCount = ['getCmtCount' => "Comment no active: $getCmtCount"];
+                $cmtCount = ['getCmtCount' => "Comment waiting admin to approve: $getCmtCount"];
             }else $cmtCount = ['getCmtCount' => "Comment no active: 0"];
             return $cmtCount;
         }

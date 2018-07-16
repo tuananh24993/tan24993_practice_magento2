@@ -21,17 +21,20 @@ class NewComment extends \Magento\Framework\View\Element\Template
 
     public function getFormAction()
     {
-        return '/magen/post/comment/save';
+        $url = $this->getUrl('*/*', ['_direct' => 'post/comment/save', '_use_rewrite' => true]);
+        return $url;
     }
 
     public function getAjaxUrl()
     {
-        return '/magen/post/comment/load';
+        $url = $this->getUrl('*/*', ['_direct' => 'post/comment/load', '_use_rewrite' => true]);
+        return $url;
     }
 
     public function getAjaxNotificationLoadUrl()
     {
-        return '/magen/post/notification/load';
+        $url = $this->getUrl('*/*', ['_direct' => 'post/notification/load', '_use_rewrite' => true]);
+        return $url;
     }
 
     public function getPostID()
